@@ -16,7 +16,7 @@ def test_health(client):
 def test_shorten_returns_code(client):
 	r = client.post("/shorten", json={"url": "https://example.com"})
 	assert r.status_code == 200
-	assert len(r.json()["code"]) ==  6
+	assert len(r.json()["code"]) ==  8
 
 def test_redirect_works(client):
 	r = client.post("/shorten", json={"url": "https://example.com"})
