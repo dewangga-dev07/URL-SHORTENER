@@ -35,7 +35,7 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-depedency-path: app/recuirements.txt
+          cache-depedency-path: app/requirements.txt
 
       - name: Install dependenci
         run: ruff check app
