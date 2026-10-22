@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branch: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+service:
+  postgres:
+    image: postgres:16-alpine
+    env:
+      POSTGRES_USER: shortener
+      POSTGRES_PASSWORD: shortener
+      POSTGRES_DB: shortener
+    ports:
+      - 5432:5432
+    options: >-
+      --health-cmd "pg_isready -U shortener -d shortener"
+      --health-interval 5s
+      --health-timeout 3s
+      --health-retries 10
+    env:
+      DATABASE_URL: postgresql://shortener:shortener@localhost:5432/shortener
+
+    steps:
+      - name: Ambil Kode
+        uses:
+
+      - name: Pasang python
+        uses: actions/checkout@v4
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-depedency-path: app/requirements.txt
+
+      - name: Install dependenci
+        run: ruff check app
+
+      - name: Jalankan test
+        working-directory: app
+        run: python -m pytest -v
+
+
