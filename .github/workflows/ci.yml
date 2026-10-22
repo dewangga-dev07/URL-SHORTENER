@@ -38,7 +38,12 @@ jobs:
           cache-depedency-path: app/requirements.txt
 
       - name: Install dependenci
-        run: ruff check app
+        run: |
+          pip install -r app/requirements.txt
+          pip install ruff
+
+      - name: linter
+          run: ruff check app
 
       - name: Jalankan test
         working-directory: app
