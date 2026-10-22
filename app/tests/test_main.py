@@ -28,3 +28,13 @@ def test_redirect_works(client):
 def test_unknown_code_returns_404(client):
 	r = client.get("/tidakada", follow_redirects=False)
 	assert r.status_code == 404
+
+def test_stats_returns_total(client):
+	r = client.get("/stats")
+	assert r.status_code == 200
+	assert isinstance(r.json()["total_links"], int)
+def test_stats_increases_after_shorten(client):
+        before = client.get("/stats").json()["total_links"]
+        client.post ("/shorten", json={"url" : "https://example.com"})
+        after = client.get("/stats").json()["total_links"]
+        assert after == before + 1
