@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branch: [main]
+    branches: [main]
   pull_request:
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-depedency-path: app/requirements.txt
+          cache-dependency-path: app/requirements.txt
 
       - name: Install dependenci
         run: |
@@ -43,10 +43,8 @@ jobs:
           pip install ruff
 
       - name: linter
-          run: ruff check app
+        run: ruff check app
 
       - name: Jalankan test
         working-directory: app
         run: python -m pytest -v
-
-
