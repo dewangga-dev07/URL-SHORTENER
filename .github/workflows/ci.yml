@@ -42,7 +42,7 @@ jobs:
         run: python -m pytest -v
   docker:
     runs-on: ubuntu-latest
-    needs: stats
+    needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: checkout kode
